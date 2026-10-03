@@ -24,10 +24,10 @@ public class CalendarApp {
             System.out.println("4. View tasks");
             System.out.println("5. Save tasks to file");
             System.out.println("6. Load tasks from file");
-            System.out.println("7. Print Schedule");
-            System.out.println("8. Exit");
+            // System.out.println("7. Print Schedule");
+            System.out.println("7. Exit");
             
-            System.out.println("Please enter choice: ");
+            System.out.print("Please enter choice: ");
             choice = userInput.nextInt();
             userInput.nextLine();
 
@@ -36,9 +36,9 @@ public class CalendarApp {
                     addTask();
                     break;
                         
-                // case 2:
-                //     editTask();
-                //     break;
+                case 2:
+                    editTask();
+                    break;
 
                 case 3:
                     deleteTask();
@@ -56,11 +56,11 @@ public class CalendarApp {
                     loadTasks();
                     break;
 
-                case 7:
-                    schedule();
-                    break;
+                // case 7:
+                //     schedule();
+                //     break;
 
-                case 8:
+                case 7:
                     break;
             }
         }
@@ -68,162 +68,120 @@ public class CalendarApp {
     }
 
     static void addTask() {
-        System.out.println("Enter title: ");
+        System.out.print("Enter title: ");
         String title = userInput.nextLine();
 
-        System.out.println("Enter priority: ");
+        System.out.print("Enter priority: ");
         int priority = userInput.nextInt();
         userInput.nextLine();
 
-        System.out.println("Enter due date (yyyy-mm-dd): ");
+        System.out.print("Enter due date (yyyy-mm-dd): ");
         String dueText = userInput.nextLine();
         LocalDate due = LocalDate.parse(dueText);
 
-        boolean complete = false;
+        Boolean complete = false;
             
         Task newTask = new Task(title, priority, due, complete);
         
         tasks.add(newTask);
                 
         
-        System.out.println(newTask.title + " task added");
+        System.out.print(newTask.title + " task added");
     }
     
-    // static void editTask() {
-    //     viewTasks();
+    static void editTask() {
+        viewTasks();
 
-    //     System.out.println("Enter task # to edit: ");
-    //     int taskNum = userInput.nextInt();
-    //     userInput.nextLine();
+        System.out.print("Which task do you want to edit? ");
+        int editChoice = userInput.nextInt() - 1;
+        userInput.nextLine();
 
-    //     System.out.println("Select item to edit: ");
-    //     System.out.println("1. Title");
-    //     System.out.println("2. Priority");
-    //     System.out.println("3. Due Date");
-    //     System.out.println("4. Colmpletion");
-            
-    //     System.out.println("Please enter choice: ");
-    //     int editChoice = userInput.nextInt();
-    //     userInput.nextLine();
+        Task task = tasks.get(editChoice);
 
-    //         switch(editChoice) {
-    //             case 1:
-    //         //     for doc in docs:
-    //     //          data = doc.to_dict()
-    //     //         if selected_item == data["upc"]:
-    //     //             edit_choice = display_edit_menu(selected_item)
+        System.out.println("Which part of the task do you want to edit? ");
+        System.out.println("1. Title");
+        System.out.println("2. Priority");
+        System.out.println("3. Due Date");
+        System.out.println("4. Colmpletion");
+
+        System.out.print("Select item to edit: ");
+        int editTaskPart = userInput.nextInt();
+        userInput.nextLine();
+
+        switch(editTaskPart) {
+            case 1:
+                System.out.print("Enter new title: ");
+                String newTitle = userInput.nextLine();
+                task.title = newTitle;
+                
+                System.out.println("Task edited");
+                break;
                     
-    //                 break;
-                        
-    //             case 2:
+            case 2:
+                System.out.print("Enter new priority: ");
+                int newPriority = userInput.nextInt();
+                userInput.nextLine();
+                task.priority = newPriority;
+                
+                break;
 
-    //             break;
+            case 3:
+                System.out.print("Enter new due date (yyyy-mm-dd): ");
+                String newDueText = userInput.nextLine();
+                LocalDate newDue = LocalDate.parse(newDueText);
+                userInput.nextLine();
+                task.due = newDue;
+                
+                break;
 
-    //             case 3:
+            case 4:
+                if (task.complete){
+                    task.complete = false;
+                } else {
+                    task.complete = true;
+                }
 
-    //                 break;
-
-    //             case 4:
-
-    //                 break;
-    //         }
-    //         System.out.println("Task edited");
-
-
-
-
-        // System.out.println("Enter new task: ");
-        // String editedTask().NextLine();
-
-        // tasks.set(tasks.indexOf(taskNum),);
-        // System.out.println("Edit");
-
-
-
-
-
-//     for doc in docs:
-//         data = doc.to_dict()
-//         if selected_item == data["upc"]:
-//             edit_choice = display_edit_menu(selected_item)
-
-//             if edit_choice == "1":
-//                 print('Enter new UPC:')
-//                 new_upc = input()
-//                 db.collection("users").document(user_id).collection('inventory').document(selected_item).update({"upc":new_upc})
-
-//             elif edit_choice == "2":
-//                 print('Enter new item name: ')
-//                 new_name = input()
-//                 db.collection("users").document(user_id).collection('inventory').document(selected_item).update({"name":new_name})
-
-//             elif edit_choice == "3":
-//                 print('Enter new item quantity: ')
-//                 qty = input()
-//                 new_qty = int(qty)
-//                 db.collection("users").document(user_id).collection('inventory').document(selected_item).update({"quantity":new_qty})
-
-//             elif edit_choice == "4":
-//                 print('Enter storage location: ')
-//                 new_location = input()
-//                 db.collection("users").document(user_id).collection('inventory').document(selected_item).update({"location":new_location})
-
-//             # elif edit_choice == "5":
-//             #     print('Enter expiration date: ')
-//             #     new_expiration = input()
-//             #     x["expiration"] = new_expiration
-
-//             else: 
-//                 print(f'{edit_choice} is not a valid option.  Please choose again.')
-//                 display_edit_menu()
-
-//     display_inventory(user_id)
-//     display_menu(user_id)
-
-// def display_edit_menu(selected_item):
-//     # enter new item
-//     print()
-//     print(f'What info would you like to update for {selected_item}?')
-//     print("1. UPC")
-//     print("2. Name")
-//     print("3. Quantity")
-//     print("4. Location")
-//     # print("5. Expiration")
-//     print("Enter Selection")
-//     print()
-//     edit_choice = input()
-
-//     return edit_choice
-
-    // }
-    
-        // System.out.println("Complete");
+                System.out.println("Task marked " + task.complete);
+                break;
+            }
+        }
 
     
     static void deleteTask() {
-        // cars.remove(0);
-        System.out.println("Delete");
+        viewTasks();
+
+        System.out.print("Which task do you want to delete? ");
+        int deleteChoice = userInput.nextInt() - 1;
+        userInput.nextLine();
+
+        tasks.remove(deleteChoice);
+        System.out.println("Task deleted.");
     }
-    
+        
     static void viewTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i+1 + ". " + tasks.get(i).title);
-            System.out.println(i+1 + ". " + tasks.get(i).priority);
-            System.out.println(i+1 + ". " + tasks.get(i).due);
-            System.out.println(i+1 + ". " + tasks.get(i).complete);
+            int taskNum = i;
+            System.out.println("");
+            System.out.println("Task #" + (taskNum + 1));
+            System.out.println("Task: " + tasks.get(i).title);
+            System.out.println("Priority: " + tasks.get(i).priority);
+            System.out.println("Date Due: " + tasks.get(i).due);
+            if (tasks.get(i).complete){
+                System.out.println("Completed: Yes");
+            }
+            else {
+                System.out.println("Completed: No");
+            }
 
         }
         System.out.println();
     }
     
     static void saveTasks() {
-        Task newTask = new Task("Write this program", 1, LocalDate.of(2026, 10, 3), false);
-        tasks.add(newTask);
-
         try {
             FileWriter myWriter = new FileWriter("taskFile.txt");
             for (Task task : tasks) {
-                myWriter.write(task.title + "," + task.priority + "," + task.due + "," + task.complete);
+                myWriter.write(task.title + "," + task.priority + "," + task.due + "," + task.complete + "\n");
             }
             myWriter.close();
             System.out.println("Tasks saved");
@@ -239,18 +197,29 @@ public class CalendarApp {
 
         // try-with-resources: Scanner will be closed automatically
         try (Scanner myReader = new Scanner(readFile)) {
-        while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            System.out.println(data);
-        }
+
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] pieces = data.split(",");
+
+                String title = pieces[0];
+                int priority = Integer.parseInt(pieces[1]);
+                LocalDate due = LocalDate.parse(pieces[2]);
+                Boolean complete = Boolean.parseBoolean(pieces[3]);
+                    
+                Task newTask = new Task(title, priority, due, complete);
+                tasks.add(newTask);
+                
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot read file.");
             e.printStackTrace();
         }
+        System.out.println("Tasks Loaded.  Select View tasks to view all tasks.");
 }
     
-    static void schedule() {
-        System.out.println("Schedule");
-    }
+    // static void schedule() {
+    //     System.out.println("Schedule");
+    // }
     // userInput.close();
 }

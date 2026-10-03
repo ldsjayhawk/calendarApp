@@ -1,1 +1,4 @@
+Take a break,4,2026-10-04,false
+Create video,1,2026-10-03,false
 Write this program,1,2026-10-03,false
+Turn in assignment,1,2026-10-03,false
